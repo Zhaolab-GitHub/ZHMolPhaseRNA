@@ -1,0 +1,7 @@
+panel_letter	feature	title	y_label	P_raw	FDR_P	delta
+a	local_entropy30_lowfrac	Low-complexity fraction (30 nt)	Fraction	9.187338846439023e-25	1.1851667111906342e-22	0.30856327738195866
+b	local_entropy30_mean	Mean local entropy (30 nt)	Normalized entropy	5.9846724683124155e-18	2.573409161374339e-16	-0.2740271404419756
+c	k2_CA	CA dinucleotide frequency	Frequency	1.109714900776703e-17	3.5788305550048723e-16	-0.2716987682647023
+d	k2_UC	UC dinucleotide frequency	Frequency	5.123382235773532e-17	1.3218326168295605e-15	-0.26604803163869095
+e	k3_UCA	UCA trinucleotide frequency	Frequency	9.603386805504008e-17	2.0647281631833593e-15	-0.26299888298514673
+f	k2_CU	CU dinucleotide frequency	Frequency	1.8572711939792e-16	3.42268548604738e-15	-0.26114297790121965

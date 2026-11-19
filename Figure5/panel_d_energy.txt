@@ -1,0 +1,3 @@
+variant	isolated_6nt_duplex_MFE_kcal_per_mol
+KL A	-7.89
+KL WT	-10.89

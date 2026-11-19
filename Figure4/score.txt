@@ -1,0 +1,2 @@
+name	score
+CAG47_repeat_core_141nt	0.99886
