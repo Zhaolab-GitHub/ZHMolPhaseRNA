@@ -4,6 +4,10 @@
 
 **ZHMolPhaseRNA is a sequence-based machine-learning framework for predicting RNAs involved in liquid–liquid phase separation (LLPS).** It integrates pretrained ERNIE-RNA representations with handcrafted sequence features and LightGBM models.
 
+**We also provide an online prediction server for convenient use without local installation:**
+
+**[Click to access the ZHMolPhaseRNA online server](http://zhaoserver.com.cn/ZHMolPhaseRNA/ZHMolPhaseRNA.html)**
+
 This repository provides prediction and training code, pretrained models, datasets, and source data for reproducing the main figures.
 
 ## 2. Installation
