@@ -1,27 +1,26 @@
 # ZHMolPhaseRNA
 
-ZHMolPhaseRNA is a sequence-based machine-learning framework for identifying LLPS-associated RNAs.
+## 1. Overview
 
-## 1. Installation
+**ZHMolPhaseRNA is a sequence-based machine-learning framework for predicting RNAs involved in liquid–liquid phase separation (LLPS).** It integrates pretrained ERNIE-RNA representations with handcrafted sequence features and LightGBM models.
 
-Linux, CPU; prediction and training use the same environment.
+This repository provides prediction and training code, pretrained models, datasets, and source data for reproducing the main figures.
+
+## 2. Installation
+
+ZHMolPhaseRNA supports CPU-based prediction and has been configured for Linux with Python 3.10.
 
 ```bash
+git clone https://github.com/Zhaolab-GitHub/ZHMolPhaseRNA.git
+cd ZHMolPhaseRNA
+
 conda env create -f environment.yml
 conda activate llps-rna
 ```
 
-Keep `requirements.txt` beside `environment.yml`. Use the specified Python 3.10 and zlib 1.3.1 versions to preserve feature calculations.
+## 3. Download Pretrained Model
 
-## 2. Files
-
-- `data/`: training FASTA, original features, cross-validation splits and large-scale ID lists.
-- `models/`: 50 LightGBM models, fixed parameters and ERNIE-RNA configuration/code.
-- `results/`: original OOF predictions, metrics, and curves.
-
-## 3. Download ERNIE-RNA
-
-LightGBM models are included. Download only the matching ERNIE-RNA weights:
+The 50 trained LightGBM models are already included in the repository. Only the pretrained ERNIE-RNA encoder weights need to be downloaded.
 
 ```bash
 curl --fail --location --retry 3 \
@@ -29,54 +28,80 @@ curl --fail --location --retry 3 \
   --output models/ernie_rna/pytorch_model.bin
 ```
 
-Keep the supplied configuration and tokenizer files. The encoder is the [Taykhoom conversion](https://huggingface.co/Taykhoom/ERNIE-RNA) of [ERNIE-RNA](https://github.com/Bruce-ywj/ERNIE-RNA); the upstream license notice is retained in `models/ernie_rna/`.
+The ERNIE-RNA encoder is based on the [original ERNIE-RNA implementation](https://github.com/Bruce-ywj/ERNIE-RNA).
 
-## 4. Prediction
+## 4. Usage
 
-```bash
-python predict.py --fasta data/example.fasta --threads 4 \
-  --format tsv --output output/predictions.tsv
+### Prepare Input Sequences
+
+Provide RNA sequences in FASTA format. An example input file is available at `data/example.fasta`.
+
+```fasta
+>RNA_1
+AUGCAUGCAUGCAUGC
+>RNA_2
+GGGAAAUUUCCCGGG
 ```
 
-FASTA and gzip FASTA are supported. Use unique IDs and A/C/G/U sequences; lowercase and T are normalized, while N and other ambiguous bases are rejected. Add `--include-model-scores` to save all 50 scores.
+Sequences should contain A, C, G, and U nucleotides. Lowercase letters and T are automatically normalized; ambiguous nucleotides are not supported.
 
-`mean_probability` is the mean of the 50 model scores, with a default classification threshold of 0.5. It is not a calibrated probability of experimental LLPS. Example output: `results/example_predictions.tsv`.
+### Predict RNA LLPS
 
-## 5. Reproduce Training
-
-Use the original `4004 × 899` feature matrix and fixed splits included in `data/`:
+Run the prediction script:
 
 ```bash
-python train.py --threads 16 --output output/training
+python predict.py \
+  --fasta data/example.fasta \
+  --threads 4 \
+  --format tsv \
+  --output output/predictions.tsv
 ```
 
-This retrains all 50 LightGBM models using the original cross-validation splits. Models, OOF predictions and metrics are saved to the output directory. Use a new directory for each run. ERNIE-RNA weights are not needed for this step.
+The results include a `mean_probability` score averaged across 50 LightGBM models. The default classification threshold is 0.5.
 
-At completion, `MATCH` or `DIFFERENT` reports agreement with the original OOF scores and metrics (absolute tolerance 1e-12). Original/reproduced metric values are printed and saved in `summary.tsv`; details are included in `training_report.json`. A partial run compares only its selected folds.
+To obtain individual model scores, add `--include-model-scores`.
 
-To recompute features from FASTA instead:
+An example output is provided in `results/example_predictions.tsv`.
+
+## 5. Reproducing Model Training
+
+The original training dataset, feature matrix, and ten-dataset five-fold cross-validation splits are included in `data/`.
+
+To reproduce model training:
 
 ```bash
-python extract_features.py --fasta data/training/combined.fasta \
-  --output output/features --threads 4
-python train.py --features output/features --threads 16 \
-  --output output/training_recomputed
+python train.py \
+  --threads 16 \
+  --output output/training
 ```
 
-CPU feature extraction can be slow and can differ slightly from the original GPU embeddings. Use the supplied feature matrix to reproduce the original training scores.
+This retrains the 50 LightGBM models and generates cross-validation predictions and evaluation metrics.
 
-## 6. Datasets
+The original feature matrix is provided in `data/training/X_899.npy`. Reproducing training from this matrix does not require downloading the ERNIE-RNA weights.
 
-| Collection | RNA count | Included format |
-| --- | ---: | --- |
-| Training/CV | 364 Reviewed positive + 3,640 unlabeled = 4,004 | FASTA, features and original ten-dataset/five-fold splits |
-| HTP-supported application | 55,919 | `data/large_scale/HTP_supported_RPS_ids.txt` |
-| RefSeq background application | 179,602 | `data/large_scale/RefSeq_background_ids.txt` |
+## 6. Datasets and Figure Reproduction
 
-Unlabeled RNAs are not experimentally validated non-LLPS controls. Background `U_...` IDs are project-internal identifiers, not RefSeq accessions. Full large-scale FASTA files are distributed separately.
+The repository includes:
 
-## 7. Reproduce Curves
+- **Training data:** 364 Reviewed LLPS-associated RNAs and 3,640 unlabeled RNAs, organized into ten length-matched datasets.
+- **Cross-validation:** Original group-aware five-fold data splits, predictions, and evaluation results.
+- **Large-scale applications:** RNA ID lists for 55,919 HTP-supported RNAs and 179,602 RefSeq background RNAs.
+- **Figure data:** Source data and available plotting scripts for Figures 2–6.
+
+Unlabeled RNAs are used as background samples and should not be interpreted as experimentally confirmed non-LLPS RNAs.
+
+The plotting scripts are provided in the corresponding `Figure2/`–`Figure6/` directories. For example:
 
 ```bash
+python Figure2/plot_figure2.py
+python Figure3/plot_figure3.py
 python plot_cv.py --output output/cv_figures
 ```
+
+Additional figure-specific scripts and source files are available in their respective directories.
+
+## Contact
+
+For questions or suggestions regarding ZHMolPhaseRNA, please contact:
+
+Chengwei Zeng: [cwzengwuhan@mails.ccnu.edu.cn](mailto:cwzengwuhan@mails.ccnu.edu.cn)
