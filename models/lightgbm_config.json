@@ -1,0 +1,29 @@
+{
+  "seed": 42,
+  "threshold": 0.5,
+  "rounds": 800,
+  "params": {
+    "objective": "binary",
+    "metric": "binary_logloss",
+    "learning_rate": 0.05,
+    "num_leaves": 31,
+    "max_depth": -1,
+    "min_data_in_leaf": 30,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "lambda_l2": 2.0,
+    "verbosity": 1,
+    "seed": 42,
+    "bagging_seed": 42,
+    "feature_fraction_seed": 42,
+    "data_random_seed": 42,
+    "num_threads": 16,
+    "device_type": "cpu",
+    "deterministic": true,
+    "force_col_wise": true
+  },
+  "feature_dim": 899,
+  "datasets": 10,
+  "folds": 5
+}

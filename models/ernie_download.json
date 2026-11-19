@@ -1,0 +1,9 @@
+{
+  "repository": "Taykhoom/ERNIE-RNA",
+  "revision": "aeea0c5af5f0734c4e15d974f6d95704fa2d7494",
+  "filename": "pytorch_model.bin",
+  "url": "https://huggingface.co/Taykhoom/ERNIE-RNA/resolve/aeea0c5af5f0734c4e15d974f6d95704fa2d7494/pytorch_model.bin",
+  "bytes": 345970527,
+  "destination": "models/ernie_rna/pytorch_model.bin",
+  "provenance": "Matching pretrained snapshot used for training; weights are downloaded separately."
+}
