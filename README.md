@@ -1,6 +1,6 @@
-# LLPS-RNA
+# ZHMolPhaseRNA
 
-ZHMolPhase_RNA is a sequence-based machine-learning framework for identifying LLPS-associated RNAs.
+ZHMolPhaseRNA is a sequence-based machine-learning framework for identifying LLPS-associated RNAs.
 
 ## 1. Installation
 
