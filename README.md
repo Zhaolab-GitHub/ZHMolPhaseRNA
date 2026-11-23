@@ -1,4 +1,3 @@
-
 # ZHMolPhaseRNA
 
 ## 1. Overview
@@ -10,12 +9,6 @@
 **[Click to access the ZHMolPhaseRNA online server](http://zhaoserver.com.cn/ZHMolPhaseRNA/ZHMolPhaseRNA.html)**
 
 This repository provides prediction and training code, pretrained models, datasets, and source data for reproducing the main figures.
-
-Large-scale RNA sequence datasets used in this study are also available through Zenodo:
-
-**[Download large-scale FASTA datasets from Zenodo](https://doi.org/10.5281/zenodo.24452065)**
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24452065.svg)](https://doi.org/10.5281/zenodo.24452065)
 
 ## 2. Installation
 
@@ -101,20 +94,11 @@ The repository includes:
 
 ### Large-scale FASTA Datasets
 
-The corresponding large-scale RNA sequence datasets are hosted separately on Zenodo to facilitate data access and reproducibility.
+The large-scale RNA sequence datasets used in this study are publicly available on Zenodo:
 
-**[Zenodo: Large-scale RNA Sequence Datasets](https://doi.org/10.5281/zenodo.24452065)**
+**[Download large-scale FASTA datasets](https://zenodo.org/records/24452065)**
 
-The dataset can be downloaded using:
-
-```bash
-wget -O large_scale_data.zip \
-  "https://zenodo.org/records/24452065/files/large_scale_data.zip?download=1"
-
-unzip large_scale_data.zip -d data/large_scale/
-```
-
-The FASTA files provide the sequence-level data used for large-scale analyses. These datasets are supplementary to the main prediction pipeline and are not required for routine RNA LLPS prediction.
+These datasets provide the RNA sequences corresponding to the large-scale applications described above and can be downloaded directly from Zenodo.
 
 Unlabeled RNAs are used as background samples and should not be interpreted as experimentally confirmed non-LLPS RNAs.
 
@@ -131,14 +115,6 @@ python plot_cv.py --output output/cv_figures
 ```
 
 Additional figure-specific scripts and source files are available in their respective directories.
-
-## 7. Data Availability
-
-The large-scale RNA sequence datasets are publicly available on Zenodo:
-
-**DOI:** [10.5281/zenodo.24452065](https://doi.org/10.5281/zenodo.24452065)
-
-Please cite the Zenodo dataset when using these large-scale sequence data.
 
 ## Contact
 
