@@ -96,9 +96,9 @@ The repository includes:
 
 The large-scale RNA sequence datasets used in this study are publicly available on Zenodo:
 
-**[Download large-scale FASTA datasets](https://zenodo.org/records/24452065)**
+**[Zenodo record: Large-scale RNA Sequence Datasets](https://zenodo.org/records/24452065)**
 
-These datasets provide the RNA sequences corresponding to the large-scale applications described above and can be downloaded directly from Zenodo.
+The FASTA files can be downloaded directly from the Zenodo record for large-scale RNA sequence analysis and prediction.
 
 Unlabeled RNAs are used as background samples and should not be interpreted as experimentally confirmed non-LLPS RNAs.
 
